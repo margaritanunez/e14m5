@@ -6,21 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ItemLayoutBinding
 
-/*
-[ ] implementar clase Adapter
-[ ]  heredar RecyclerView.Adapter
-[ ] creaciones de los métodos: onCreateViewHolder, getItemCount y onBindViewHolder
-[ ] crear clase anidada ViewHolder, que hereda de la clase ViewHolder
-[ ] Agregar constructor
-[ ] crear objeto, data class
-[ ] Crear lista
-[ ] asignar tamaño de la lista en getItemCount
-[ ] definir Binding Class del Item
-[ ] cambiar view por el binding
-* */
+
 
 class Adapter : RecyclerView.Adapter <Adapter.ViewHolder>(){
-    val pokemones= mutableListOf<Pokemon>()
+    var pokemones= mutableListOf<Pokemon>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,9 +22,21 @@ class Adapter : RecyclerView.Adapter <Adapter.ViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val item = pokemones[position]
+        holder.bind(item)
     }
-    class ViewHolder(binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    fun setData(pokedex: List<Pokemon>) {
+        this.pokemones = pokedex.toMutableList()
+
+    }
+
+    class ViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(pokemon: Pokemon) {
+            binding.nombrePokemonTxt.text= pokemon.nombre
+            binding.tipoPokemonTxt.text= pokemon.tipo
+
+        }
 
     }
 }
